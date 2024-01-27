@@ -62,6 +62,9 @@ autocmd('LspAttach', {
     vim.keymap.set("n", "<leader>rf", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
   end,
 })
 
@@ -70,3 +73,7 @@ autocmd('BufWritePost', {
   pattern = '*',
   command = [[%s/\s\+$//e]],
 })
+
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25

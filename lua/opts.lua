@@ -7,6 +7,7 @@ opt.encoding = 'utf-8'
 
 opt.title = true
 
+-- No clue what this does
 vim.cmd [[let &t_Cs = "\e[4:3m"]]
 vim.cmd [[let &t_Ce = "\e[4:0m"]]
 
@@ -14,7 +15,7 @@ opt.hlsearch = false
 opt.incsearch = true
 
 -- Do not show mode
-opt.showmode = false
+opt.showmode = true
 
 -- Pseudo transparency for floating window
 opt.winblend = 10
