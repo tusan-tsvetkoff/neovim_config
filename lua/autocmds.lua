@@ -20,21 +20,21 @@ vim.filetype.add({
 	},
 })
 
-autocmd("VimEnter", {
-  callback = function(data)
-    -- buffer is a directory
-    local directory = vim.fn.isdirectory(data.file) == 1
-
-    -- change to the directory
-    if directory then
-      vim.cmd.cd(data.file)
-      vim.cmd "Telescope find_files"
-      -- require("nvim-tree.api").tree.open()
-    end
-  end,
-  group = general,
-  desc = "Open Telescope when it's a Directory",
-})
+-- autocmd("VimEnter", {
+--   callback = function(data)
+--     -- buffer is a directory
+--     local directory = vim.fn.isdirectory(data.file) == 1
+--
+--     -- change to the directory
+--     if directory then
+--       vim.cmd.cd(data.file)
+--       vim.cmd "Telescope find_files"
+--       -- require("nvim-tree.api").tree.open()
+--     end
+--   end,
+--   group = general,
+--   desc = "Open Telescope when it's a Directory",
+-- })
 
 autocmd("BufReadPost", {
 	callback = function()

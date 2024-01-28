@@ -11,6 +11,20 @@ return {
 				end,
 			},
 		},
+		opts = {
+			pickers = {
+				oldfiles = {
+					promp_title = "Recent Files",
+				},
+				find_files = {
+					hidden = true,
+				},
+			},
+      extensions_list = {
+        "harpoon",
+        "projects"
+      }
+		},
 		config = function()
 			require("telescope").setup({})
 
