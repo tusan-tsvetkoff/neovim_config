@@ -25,10 +25,12 @@ return {
         "projects"
       }
 		},
-		config = function()
-			require("telescope").setup({})
+		config = function(_, opts)
+			require("telescope").setup(opts or {})
 
 			local builtin = require("telescope.builtin")
+
+			vim.keymap.set("n", "<leader>sp", "<cmd>Telescope projects<cr>", { silent = true })
 			vim.keymap.set("n", "<leader>sf", builtin.find_files, {})
 			vim.keymap.set("n", "<C-p>", builtin.git_files, {})
 			vim.keymap.set("n", "<leader>sWg", function()

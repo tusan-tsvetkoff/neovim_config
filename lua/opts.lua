@@ -15,15 +15,13 @@ opt.hlsearch = false
 opt.incsearch = true
 
 -- Do not show mode
-opt.showmode = true
+opt.showmode = false
 
 -- Pseudo transparency for floating window
 opt.winblend = 10
 
 -- Pseudo transparency for completion menu
 opt.pumblend = 10
-
--- Fix markdown indentation settings
 
 opt.smoothscroll = true
 

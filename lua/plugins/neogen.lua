@@ -2,7 +2,7 @@ return {
 	"danymat/neogen",
 	dependencies = { "nvim-treesitter/nvim-treesitter" },
   keys = {
-			{ "<leader>gd", "<cmd>Neogen<CR>", desc = "Generate func|class|type documentation" },
+			{ "<leader>ng", "<cmd>Neogen<CR>", desc = "Generate func|class|type documentation" },
   },
 	opts = {
 		snippet_engine = "luasnip",

@@ -12,7 +12,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
-
 require("lazy").setup({
 	spec = "plugins",
 	change_detection = {
@@ -56,7 +55,3 @@ require("lazy").setup({
 require("opts")
 require("keymaps")
 require("autocmds")
-
-vim.g.netrw_browse_split = 0
-vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 25

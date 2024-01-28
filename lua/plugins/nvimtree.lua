@@ -94,6 +94,7 @@ local opts = {
 return {
 	"nvim-tree/nvim-tree.lua",
 	init = function()
+    local api = require("nvim-tree.api")
 		vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { silent = true })
 	end,
 	cmd = {
