@@ -1,15 +1,15 @@
 local opt = vim.opt
 
-vim.scriptencoding = 'utf-8'
+vim.scriptencoding = "utf-8"
 
 --------------------------------------------------------
-opt.encoding = 'utf-8'
+opt.encoding = "utf-8"
 
 opt.title = true
 
 -- No clue what this does
-vim.cmd [[let &t_Cs = "\e[4:3m"]]
-vim.cmd [[let &t_Ce = "\e[4:0m"]]
+vim.cmd([[let &t_Cs = "\e[4:3m"]])
+vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
 opt.hlsearch = false
 opt.incsearch = true
@@ -31,17 +31,17 @@ opt.showmatch = true
 opt.errorbells = false
 
 -- Enable mouse mode
-opt.mouse = 'a'
+opt.mouse = "a"
 opt.mousemoveevent = true
 opt.cursorline = true
 
 opt.cmdheight = 1
-opt.inccommand = 'split'
+opt.inccommand = "split"
 
 opt.hidden = true
 
 -- Soy
-opt.clipboard = 'unnamedplus'
+opt.clipboard = "unnamedplus"
 
 -- Enable break indent
 opt.breakindent = true
@@ -54,7 +54,7 @@ opt.ignorecase = true
 opt.smartcase = true
 
 -- Always block cursor
-opt.guicursor = 'n-v-c-i:block'
+opt.guicursor = "n-v-c-i:block"
 
 opt.nu = true
 opt.relativenumber = true
@@ -73,18 +73,17 @@ opt.swapfile = false
 
 opt.scrolloff = 4
 opt.sidescrolloff = 4
-opt.isfname:append '@-@'
+opt.isfname:append("@-@")
 
 -- Keep signcolumn on by default
-opt.signcolumn = 'yes:1'
+opt.signcolumn = "yes:1"
 
 -- Decrease update time
 opt.updatetime = 50
 
-opt.colorcolumn = '80'
+opt.colorcolumn = "80"
 
 -- Set completeopt to have a better completion experience
-opt.completeopt = { 'menuone', 'noselect' }
-
+opt.completeopt = { "menuone", "noselect" }
 opt.termguicolors = true
 opt.synmaxcol = 512
