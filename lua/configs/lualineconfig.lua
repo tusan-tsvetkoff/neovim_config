@@ -14,7 +14,11 @@ local colors = {
 }
 
 local git_blame = require("gitblame")
-vim.g.gitblame_display_virtual_text = 0
+git_blame.setup({
+	display_virtual_text = false,
+	date_format = "%r",
+})
+vim.g.gitblame_message_template = "<author> • <date> • <sha>"
 
 local bubbles_theme = {
 	normal = {
@@ -51,25 +55,32 @@ return {
 				end,
 			},
 		},
-		lualine_b = { "filename", "branch" },
-		lualine_c = { 
-      { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available }, 
-      { "fileformat" } 
-    },
+		lualine_b = {
+			"filename",
+			"branch",
+			{
+				git_blame.get_current_blame_text,
+				cond = git_blame.is_blame_text_available,
+			},
+		},
+		lualine_c = {
+			"fileformat",
+		},
 		lualine_x = {},
 		lualine_y = { "filetype", "progress" },
 		lualine_z = {
 			{ "location", separator = { right = "" }, left_padding = 2 },
 		},
 	},
-	inactive_sections = {
-		lualine_a = { "filename" },
-		lualine_b = {},
-		lualine_c = {},
-		lualine_x = {},
-		lualine_y = {},
-		lualine_z = { "location" },
-	},
+	-- inactive_sections = {
+	-- 	lualine_a = { "filename" },
+	-- 	lualine_b = {},
+	-- 	lualine_c = {},
+	-- 	lualine_x = {},
+	-- 	lualine_y = {},
+	-- 	lualine_z = { "location" },
+	-- },
+	globalstatus = true,
 	tabline = {},
 	extensions = {},
 }
