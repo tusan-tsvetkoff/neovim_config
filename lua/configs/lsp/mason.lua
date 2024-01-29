@@ -5,13 +5,11 @@ local capabilities = require("configs.lsp").capabilities
 
 local ok_neoconf, neoconf = pcall(require, "neoconf")
 if ok_neoconf then
-	print("Neoconf loaded")
 	neoconf.setup({})
 end
 
 local ok_neodev, neodev = pcall(require, "neodev")
 if ok_neodev then
-	print("Neodev loaded")
 	neodev.setup(require("configs.lsp.neodev"))
 end
 
@@ -36,34 +34,34 @@ mason_lspconfig.setup({
 		"vimls",
 
 		-- Web Development
-		-- "cssls",
-		-- "html",
+		"cssls",
+		"html",
 		-- "tsserver",
 		-- "denols",
 		-- "vuels",
-		-- "tailwindcss",
+		"tailwindcss",
 		-- "emmet_language_server",
 
 		-- PHP
 		-- "intelephense",
 
 		-- C/C++
-		-- "clangd",
+		"clangd",
 
 		-- CMake
-		-- "neocmake",
+		"neocmake",
 
 		-- Java
 		-- "jdtls",
 
 		-- Yaml
-		-- "yamlls",
+		"yamlls",
 
 		-- Python
 		-- "pyright",
 
 		-- Go
-		-- "gopls",
+		"gopls",
 
 		-- C#
 		"omnisharp",
