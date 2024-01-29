@@ -5,11 +5,13 @@ local capabilities = require("configs.lsp").capabilities
 
 local ok_neoconf, neoconf = pcall(require, "neoconf")
 if ok_neoconf then
+	print("Neoconf loaded")
 	neoconf.setup({})
 end
 
 local ok_neodev, neodev = pcall(require, "neodev")
 if ok_neodev then
+	print("Neodev loaded")
 	neodev.setup(require("configs.lsp.neodev"))
 end
 

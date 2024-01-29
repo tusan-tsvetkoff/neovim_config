@@ -56,25 +56,22 @@ local function lsp_highlight(client, bufnr)
 	end
 end
 
-
 local function to_snake_case(str)
 	return string.gsub(str, "%s*[- ]%s*", "_")
 end
 
-local function get_client_name()
-	local clients = vim.lsp.get_active_clients()
-	local client_name = ""
-	for _, client in ipairs(clients) do
-		if client.name == "omnisharp" then
-			client_name = client.name
-			return client_name
-		end
-	end
-	return client_name
+local function get_client_name(bufnr)
+	local clients =  vim.lsp.get_clients({ bufnr = bufnr })
+  for _, client in ipairs(clients) do
+    if client.name == "omnisharp" then
+      return true
+    end
+  end
+    return false
 end
 
 M.on_attach = function(client, bufnr)
-	if get_client_name() == "omnisharp" then
+	if get_client_name(bufnr) then
 		local token_modifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
 		for i, v in ipairs(token_modifiers) do
 			token_modifiers[i] = to_snake_case(v)

@@ -23,7 +23,7 @@ end, { desc = 'Preview Markdown' })
 keymap.set('n', '<leader>lc', function()
   local lastCommand = fn.getreg ':'
   if lastCommand == '' then
-    vim.notify('No last command available', u.warn)
+    vim.notify('No last command available')
     return
   end
   fn.setreg('+', lastCommand)
@@ -31,9 +31,6 @@ keymap.set('n', '<leader>lc', function()
 end, { desc = '󰘳 Copy last command' })
 
 keymap.set('n', '~', '~h', { desc = '~ without moving)' })
-
--- paste man
--- keymap.set('x', '<leader>p', [["_dP]])
 
 -- moving lines
 keymap.set('v', 'J', ":m '>+1<CR>gv=gv")

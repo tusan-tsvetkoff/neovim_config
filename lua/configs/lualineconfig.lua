@@ -17,8 +17,9 @@ local git_blame = require("gitblame")
 git_blame.setup({
 	display_virtual_text = false,
 	date_format = "%r",
+	message_template = " <author> • <date> • <sha>",
+	message_when_not_committed = " Commit Please !",
 })
-vim.g.gitblame_message_template = "<author> • <date> • <sha>"
 
 local bubbles_theme = {
 	normal = {
@@ -37,6 +38,21 @@ local bubbles_theme = {
 		c = { fg = colors.black, bg = colors.black },
 	},
 }
+
+local function lsp_progress()
+  local messages = vim.lsp.util.get_progress_messages()
+  if #messages == 0 then
+    return
+  end
+  local status = {}
+  for _, msg in pairs(messages) do
+    table.insert(status, (msg.percentage or 0) .. "%% " .. (msg.title or ""))
+  end
+  local spinners = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+  local ms = vim.loop.hrtime() / 1000000
+  local frame = math.floor(ms / 120) % #spinners
+  return table.concat(status, " | ") .. " " .. spinners[frame + 1]
+end
 
 return {
 	options = {
