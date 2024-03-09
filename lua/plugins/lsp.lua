@@ -58,6 +58,12 @@ return {
 					formatters_by_ft = {
 						lua = { "stylua" },
 						json = { "prettier", "prettierd" },
+						yaml = { "prettier", "prettierd" },
+						toml = { "prettier", "prettierd" },
+						html = { "prettier", "prettierd" },
+						css = { "prettier", "prettierd" },
+						scss = { "prettier", "prettierd" },
+						javascript = { "prettier", "prettierd" },
 						cs = { "csharpier" },
 					},
 					formatters = {

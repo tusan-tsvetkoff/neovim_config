@@ -75,6 +75,15 @@ autocmd("TextYankPost", {
 	end,
 })
 
+autocmd("ColorScheme", {
+	group = general,
+	pattern = "*",
+	callback = function()
+		vim.cmd("highlight SignColumn guibg=NONE")
+	end,
+	desc = "Set SignColumn Background To None",
+})
+
 autocmd("BufWritePost", {
 	group = TusanGroup,
 	pattern = "*",

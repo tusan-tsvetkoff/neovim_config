@@ -17,7 +17,7 @@ require("lazy").setup({
 	change_detection = {
 		notify = false,
 	},
----@diagnostic disable-next-line: assign-type-mismatch
+	---@diagnostic disable-next-line: assign-type-mismatch
 	dev = {
 		path = "C:\\Users\\User\\projects\\",
 		fallback = false,

@@ -28,22 +28,7 @@ return {
 				transparent_mode = false,
 			})
 			vim.cmd("colorscheme gruvbox")
+			vim.cmd("highlight SignColumn guibg=NONE")
 		end,
 	},
-	-- {
-	-- 	"rebelot/kanagawa.nvim",
-	-- 	name = "kanagawa",
-	-- 	opts = {
-	-- 		commentStyle = { italic = false },
-	-- 		keywordStyle = { italic = false, bold = true },
-	-- 		theme = "dragon",
-	-- 		background = {
-	-- 			dark = "dragon",
-	-- 		},
-	-- 	},
-	-- 	config = function(_, opts)
-	-- 		require("kanagawa").setup(opts)
-	-- 		vim.cmd("colorscheme kanagawa-dragon")
-	-- 	end,
-	-- },
 }

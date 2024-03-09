@@ -118,5 +118,8 @@ return {
 			})
 			vim.notify = require("notify")
 		end,
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
 	},
 }

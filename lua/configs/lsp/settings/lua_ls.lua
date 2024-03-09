@@ -2,7 +2,7 @@ return {
 	settings = {
 		Lua = {
 			completion = {
-				callSnippet = "Both",
+				callSnippet = "Replace",
 			},
 			hint = {
 				enable = true,
@@ -18,20 +18,20 @@ return {
 			diagnostics = {
 				globals = { "vim" },
 				disable = { "missing-fields", "incomplete-signature-doc" },
-				groupFileStatus = {
-					["ambiguity"] = "Opened",
-					["await"] = "Opened",
-					["codestyle"] = "None",
-					["duplicate"] = "Opened",
-					["global"] = "Opened",
-					["luadoc"] = "Opened",
-					["redefined"] = "Opened",
-					["strict"] = "Opened",
-					["strong"] = "Opened",
-					["type-check"] = "Opened",
-					["unbalanced"] = "Opened",
-					["unused"] = "Opened",
-				},
+				-- groupFileStatus = {
+				-- 	["ambiguity"] = "Opened",
+				-- 	["await"] = "Opened",
+				-- 	["codestyle"] = "None",
+				-- 	["duplicate"] = "Opened",
+				-- 	["global"] = "Opened",
+				-- 	["luadoc"] = "Opened",
+				-- 	["redefined"] = "Opened",
+				-- 	["strict"] = "Opened",
+				-- 	["strong"] = "Opened",
+				-- 	["type-check"] = "Opened",
+				-- 	["unbalanced"] = "Opened",
+				-- 	["unused"] = "Opened",
+				-- },
 			},
 			telemetry = { enable = false },
 			workspace = {
@@ -41,9 +41,6 @@ return {
 				checkThirdParty = false,
 				maxPreload = 100000,
 				preloadFileSize = 10000,
-			},
-			format = {
-				enable = true,
 			},
 		},
 	},

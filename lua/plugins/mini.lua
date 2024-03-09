@@ -20,7 +20,6 @@ return {
 		},
 		config = function()
 			require("mini.ai").setup({ n_lines = 500 })
-			require("mini.indentscope").setup()
 			require("mini.starter").setup({ header = header.get_day })
 
 			vim.g.gitblame_display_virtual_text = 0

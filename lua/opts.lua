@@ -73,7 +73,7 @@ opt.updatetime = 50
 
 vim.opt.inccommand = 'split'
 
-opt.colorcolumn = "80"
+opt.colorcolumn = "90"
 
 -- Set completeopt to have a better completion experience
 opt.completeopt = { "menuone", "noselect" }
