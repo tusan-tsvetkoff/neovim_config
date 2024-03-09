@@ -93,6 +93,8 @@ function M.get_day()
 	for k, v in pairs(days) do
 		if day == k then
 			return v
+		else
+			return header
 		end
 	end
 end
