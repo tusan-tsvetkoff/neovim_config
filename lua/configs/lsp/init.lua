@@ -16,7 +16,7 @@ local function lsp_keymaps(bufnr)
 	keymap("n", "K", "<cmd>Lspsaga hover_doc<cr>", buf_opts)
 	keymap("n", "gi", "<cmd>Telescope lsp_implementations<cr>", buf_opts)
 
-	keymap("n", "<C-h>", function()
+	keymap("i", "<C-h>", function()
 		vim.lsp.buf.signature_help()
 	end, buf_opts)
 

@@ -5,14 +5,18 @@ return {
 	{ "numToStr/Comment.nvim", opts = {} },
 	{ "b0o/schemastore.nvim" },
 	{ "justinsgithub/wezterm-types" },
-	{
-		-- Handle dotnet packages and references
-		"JesperLundberg/projektgunnar.nvim",
-		dependencies = {
-			"echasnovski/mini.pick",
-		},
-		event = "VeryLazy",
-	},
 	{ "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
-	{ "f-person/git-blame.nvim", opts = {} },
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^4", -- Recommended
+		ft = { "rust" },
+	},
+	{
+		"saecki/crates.nvim",
+		tag = "stable",
+		config = function()
+			require("crates").setup()
+		end,
+	},
+	{ "tpope/vim-sleuth" },
 }

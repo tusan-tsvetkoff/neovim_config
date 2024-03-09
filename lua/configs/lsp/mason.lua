@@ -32,38 +32,13 @@ mason_lspconfig.setup({
 		-- Lua
 		"lua_ls",
 		"vimls",
-
-		-- Web Development
 		"cssls",
 		"html",
-		-- "tsserver",
-		-- "denols",
-		-- "vuels",
 		"tailwindcss",
-		-- "emmet_language_server",
-
-		-- PHP
-		-- "intelephense",
-
-		-- C/C++
 		"clangd",
-
-		-- CMake
 		"neocmake",
-
-		-- Java
-		-- "jdtls",
-
-		-- Yaml
 		"yamlls",
-
-		-- Python
-		-- "pyright",
-
-		-- Go
 		"gopls",
-
-		-- C#
 		"omnisharp",
 	},
 })

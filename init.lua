@@ -17,6 +17,11 @@ require("lazy").setup({
 	change_detection = {
 		notify = false,
 	},
+---@diagnostic disable-next-line: assign-type-mismatch
+	dev = {
+		path = "C:\\Users\\User\\projects\\",
+		fallback = false,
+	},
 	performance = {
 		rtp = {
 			disabled_plugins = {
@@ -55,3 +60,4 @@ require("lazy").setup({
 require("opts")
 require("keymaps")
 require("autocmds")
+require("globals")

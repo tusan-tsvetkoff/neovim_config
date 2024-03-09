@@ -10,31 +10,11 @@ local general = augroup("General", { clear = true })
 
 local command = vim.api.nvim_create_user_command
 
-function R(name)
-	return require("plenary.reload").reload_module(name)
-end
-
 vim.filetype.add({
 	extension = {
 		templ = "templ",
 	},
 })
-
--- autocmd("VimEnter", {
---   callback = function(data)
---     -- buffer is a directory
---     local directory = vim.fn.isdirectory(data.file) == 1
---
---     -- change to the directory
---     if directory then
---       vim.cmd.cd(data.file)
---       vim.cmd "Telescope find_files"
---       -- require("nvim-tree.api").tree.open()
---     end
---   end,
---   group = general,
---   desc = "Open Telescope when it's a Directory",
--- })
 
 autocmd("BufReadPost", {
 	callback = function()
@@ -69,7 +49,7 @@ autocmd("BufEnter", {
 command("Format", function(args)
 	local status_ok, conform = pcall(require, "conform")
 	if not status_ok then
-		return vim.notify("conform.nvim isn't installed!!!")
+		return vim.notify("conform.nvim isn't installed!!!", vim.log.levels.ERROR)
 	end
 
 	local range = nil

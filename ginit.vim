@@ -42,9 +42,11 @@ end
 -------------
 
 if vim.g.neovide then
-  vim.opt.guifont = "FiraCode Nerd Font Mono:h11"
+  vim.opt.guifont = "FiraCode Nerd Font Mono:h12"
   vim.g.remember_window_size = true
   vim.g.remember_window_position = true
+
+  vim.opt.linespace = 0
 
   local function toggle_transparency()
     if vim.g.neovide_transparency == 1.0 then
@@ -66,4 +68,4 @@ if vim.g.neovide then
   vim.keymap.set("n", "<F10>", toggle_transparency, { silent = true })
 end
 
-EOF
+EOf

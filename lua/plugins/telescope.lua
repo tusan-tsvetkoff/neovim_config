@@ -11,22 +11,31 @@ return {
 				end,
 			},
 		},
-		opts = {
-			pickers = {
-				oldfiles = {
-					promp_title = "Recent Files",
+		opts = {},
+		config = function()
+			require("telescope").setup({
+				pickers = {
+					oldfiles = {
+						promp_title = "Recent Files",
+					},
+					find_files = {
+						hidden = true,
+					},
 				},
-				find_files = {
-					hidden = true,
+				extensions_list = {
+					"harpoon",
+					"projects",
 				},
-			},
-      extensions_list = {
-        "harpoon",
-        "projects"
-      }
-		},
-		config = function(_, opts)
-			require("telescope").setup(opts or {})
+				extensions = {
+					["ui-select"] = {
+						require("telescope.themes").get_dropdown(),
+					},
+				},
+			})
+
+			require("telescope").load_extension("notify")
+			pcall(require("telescope").load_extension, "fzf")
+			pcall(require("telescope").load_extension, "ui-select")
 
 			local builtin = require("telescope.builtin")
 
@@ -46,6 +55,15 @@ return {
 			end)
 			vim.keymap.set("n", "<leader>sg", builtin.live_grep, {})
 			vim.keymap.set("n", "<leader>vh", builtin.help_tags, {})
+
+			-- Slightly advanced example of overriding default behavior and theme
+			vim.keymap.set("n", "<leader>/", function()
+				-- You can pass additional configuration to telescope to change theme, layout, etc.
+				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+					winblend = 10,
+					previewer = false,
+				}))
+			end, { desc = "[/] Fuzzily search in current buffer" })
 		end,
 	},
 }

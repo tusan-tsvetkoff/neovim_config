@@ -9,6 +9,7 @@ return {
 	root_dir = function(fname)
 		local primary = lspconfig.util.root_pattern("*.sln")(fname)
 		local fallback = lspconfig.util.root_pattern("*.csproj")(fname)
-		return primary or fallback
+		local git_root = lspconfig.util.find_git_ancestor(fname)
+		return primary or git_root or fallback
 	end,
 }

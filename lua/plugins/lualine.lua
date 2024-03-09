@@ -1,6 +1,8 @@
 return {
-	"nvim-lualine/lualine.nvim",
-  event = "VeryLazy",
-  opts = require "configs.lualineconfig",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
+	-- "nvim-lualine/lualine.nvim",
+	-- event = "VeryLazy",
+	-- opts = {
+	-- 	theme = "gruvbox",
+	-- },
+	-- dependencies = { "nvim-tree/nvim-web-devicons" },
 }

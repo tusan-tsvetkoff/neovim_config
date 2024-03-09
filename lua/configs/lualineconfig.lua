@@ -13,13 +13,13 @@ local colors = {
   grey   = '#181616',
 }
 
-local git_blame = require("gitblame")
-git_blame.setup({
-	display_virtual_text = false,
-	date_format = "%r",
-	message_template = " <author> • <date> • <sha>",
-	message_when_not_committed = " Commit Please !",
-})
+-- local git_blame = require("gitblame")
+-- git_blame.setup({
+-- 	display_virtual_text = false,
+-- 	date_format = "%r",
+-- 	message_template = " <author> • <date> • <sha>",
+-- 	message_when_not_committed = " Commit Please !",
+-- })
 
 local bubbles_theme = {
 	normal = {
@@ -38,21 +38,6 @@ local bubbles_theme = {
 		c = { fg = colors.black, bg = colors.black },
 	},
 }
-
-local function lsp_progress()
-  local messages = vim.lsp.util.get_progress_messages()
-  if #messages == 0 then
-    return
-  end
-  local status = {}
-  for _, msg in pairs(messages) do
-    table.insert(status, (msg.percentage or 0) .. "%% " .. (msg.title or ""))
-  end
-  local spinners = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-  local ms = vim.loop.hrtime() / 1000000
-  local frame = math.floor(ms / 120) % #spinners
-  return table.concat(status, " | ") .. " " .. spinners[frame + 1]
-end
 
 return {
 	options = {
@@ -74,10 +59,10 @@ return {
 		lualine_b = {
 			"filename",
 			"branch",
-			{
-				git_blame.get_current_blame_text,
-				cond = git_blame.is_blame_text_available,
-			},
+			-- {
+			-- 	git_blame.get_current_blame_text,
+			-- 	cond = git_blame.is_blame_text_available,
+			-- },
 		},
 		lualine_c = {
 			"fileformat",
@@ -88,14 +73,14 @@ return {
 			{ "location", separator = { right = "" }, left_padding = 2 },
 		},
 	},
-	-- inactive_sections = {
-	-- 	lualine_a = { "filename" },
-	-- 	lualine_b = {},
-	-- 	lualine_c = {},
-	-- 	lualine_x = {},
-	-- 	lualine_y = {},
-	-- 	lualine_z = { "location" },
-	-- },
+	inactive_sections = {
+		lualine_a = { "filename" },
+		lualine_b = {},
+		lualine_c = {},
+		lualine_x = {},
+		lualine_y = {},
+		lualine_z = { "location" },
+	},
 	globalstatus = true,
 	tabline = {},
 	extensions = {},
