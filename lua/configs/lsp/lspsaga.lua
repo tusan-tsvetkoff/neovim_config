@@ -7,14 +7,14 @@ return {
   code_action = {
     num_shortcut = true,
     keys = {
-      quit = ";",
-      exec = "<CR>",
+      quit = ';',
+      exec = '<CR>',
     },
   },
 
   scroll_preview = {
-    scroll_down = "<C-f>",
-    scroll_up = "<C-b>",
+    scroll_down = '<C-f>',
+    scroll_up = '<C-b>',
   },
   request_timeout = 2000,
 
@@ -27,17 +27,17 @@ return {
   },
 
   rename = {
-    quit = ";",
-    exec = "<CR>",
+    quit = ';',
+    exec = '<CR>',
     in_select = false,
   },
 
   finder = {
-    edit = { "o", "<CR>" },
-    vsplit = "s",
-    split = "i",
-    tabe = "t",
-    quit = { ";", "<ESC>" },
+    edit = { 'o', '<CR>' },
+    vsplit = 's',
+    split = 'i',
+    tabe = 't',
+    quit = { ';', '<ESC>' },
   },
 
   diagnostic = {
@@ -52,44 +52,44 @@ return {
     text_hl_follow = false,
     border_follow = true,
     keys = {
-      exec_action = "o",
-      quit = ";",
+      exec_action = 'o',
+      quit = ';',
     },
   },
 
   symbol_in_winbar = {
     enable = true,
-    separator = "  ",
+    separator = '  ',
     hide_keyword = true,
     show_file = false,
     folder_level = 0,
   },
 
   definition = {
-    edit = "<C-c>o",
-    vsplit = "<C-c>v",
-    split = "<C-c>i",
-    tabe = "<C-c>t",
-    quit = ";",
-    close = "<Esc>",
+    edit = '<C-c>o',
+    vsplit = '<C-c>v',
+    split = '<C-c>i',
+    tabe = '<C-c>t',
+    quit = ';',
+    close = '<Esc>',
   },
 
   ui = {
-    theme = "round",
-    border = "rounded",
+    theme = 'round',
+    border = 'rounded',
     winblend = 0,
-    expand = "",
-    collaspe = "",
-    preview = " ",
-    code_action = "󱧣 ",
-    diagnostic = "🐞",
-    hover = " ",
+    expand = '',
+    collaspe = '',
+    preview = ' ',
+    code_action = '󱧣 ',
+    diagnostic = '🐞',
+    hover = ' ',
     kind = {},
   },
 
   outline = {
-    win_position = "right",
-    win_with = "",
+    win_position = 'right',
+    win_with = '',
     win_width = 30,
     show_detail = true,
     auto_preview = true,
@@ -97,22 +97,22 @@ return {
     auto_close = true,
     custom_sort = nil,
     keys = {
-      jump = "o",
-      expand_collaspe = "u",
-      quit = ";",
+      jump = 'o',
+      expand_collaspe = 'u',
+      quit = ';',
     },
   },
 
   callhierarchy = {
     show_detail = false,
     keys = {
-      edit = "e",
-      vsplit = "s",
-      split = "i",
-      tabe = "t",
-      jump = "o",
-      quit = ";",
-      expand_collaspe = "u",
+      edit = 'e',
+      vsplit = 's',
+      split = 'i',
+      tabe = 't',
+      jump = 'o',
+      quit = ';',
+      expand_collaspe = 'u',
     },
   },
 }

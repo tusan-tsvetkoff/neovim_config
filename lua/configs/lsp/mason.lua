@@ -8,10 +8,10 @@ if ok_neoconf then
 	neoconf.setup({})
 end
 
-local ok_neodev, neodev = pcall(require, "neodev")
-if ok_neodev then
-	neodev.setup(require("configs.lsp.neodev"))
-end
+-- local ok_neodev, neodev = pcall(require, "neodev")
+-- if ok_neodev then
+-- neodev.setup(require("configs.lsp.neodev"))
+-- end
 
 mason.setup({
 	ui = {

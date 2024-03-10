@@ -77,26 +77,27 @@ local sunday = [[
 ╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝   ╚═╝
 ]]
 
+local function get_date()
+  return os.date '%A, %B %d %Y' .. '\n'
+end
+
 ---@type table
 local days = {
-	[2] = monday,
-	[3] = tuesday,
-	[4] = wednesday,
-	[5] = thursday,
-	[6] = friday,
-	[7] = saturday,
-	[1] = sunday,
+  [2] = monday,
+  [3] = tuesday,
+  [4] = wednesday,
+  [5] = thursday,
+  [6] = friday,
+  [7] = saturday,
+  [1] = sunday,
 }
 
-function M.get_day()
-	local day = os.date("*t").wday
-	for k, v in pairs(days) do
-		if day == k then
-			return v
-		else
-			return header
-		end
-	end
+local function get_day()
+  return days[os.date('*t').wday] .. '\n' or header .. '\n'
+end
+
+function M.get_header()
+  return get_day() .. get_date()
 end
 
 return M

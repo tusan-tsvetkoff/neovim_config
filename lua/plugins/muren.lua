@@ -1,7 +1,7 @@
 return {
-  "AckslD/muren.nvim",
+  'AckslD/muren.nvim',
   event = {
-    { "BufNewFile", "BufAdd" },
+    { 'BufNewFile', 'BufAdd' },
   },
   opts = {
     patterns_width = 60,
@@ -9,5 +9,5 @@ return {
     options_width = 40,
     preview_height = 24,
   },
-  cmd = "MurenToggle",
+  cmd = 'MurenToggle',
 }
