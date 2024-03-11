@@ -16,7 +16,11 @@ opt.showmode = false
 opt.winblend = 10
 
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+--- except in Rust where the rule is 100 characters
+-- show more hidden characters
+-- also, show tabs nicer
+vim.opt.listchars = 'tab:^ ,nbsp:¬,extends:»,precedes:«,trail:•'
 
 -- Pseudo transparency for completion menu
 opt.pumblend = 10
@@ -78,7 +82,8 @@ vim.opt.timeoutlen = 300
 
 vim.opt.inccommand = 'split'
 
-opt.colorcolumn = '90'
+opt.colorcolumn = '80'
+vim.api.nvim_create_autocmd('Filetype', { pattern = 'rust', command = 'set colorcolumn=100' })
 
 -- Set completeopt to have a better completion experience
 opt.completeopt = { 'menuone', 'noselect' }

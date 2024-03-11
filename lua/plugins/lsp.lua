@@ -68,7 +68,7 @@ return {
           },
           formatters = {
             dprint = {
-              condition = function(self, ctx)
+              condition = function(_, ctx)
                 return vim.fs.find({ 'dprint.json' }, { path = ctx.filename, upward = true })[1]
               end,
             },

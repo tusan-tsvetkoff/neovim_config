@@ -26,4 +26,26 @@ return {
       { '<leader>ci', '<cmd>Nerdy<cr>', desc = 'Pick Icon' },
     },
   },
+  -- inline function signatures
+  {
+    'ray-x/lsp_signature.nvim',
+    event = 'VeryLazy',
+    opts = {},
+    config = function(_, opts)
+      -- Get signatures (and _only_ signatures) when in argument lists.
+      require('lsp_signature').setup {
+        doc_lines = 0,
+        handler_opts = {
+          border = 'none',
+        },
+      }
+    end,
+  },
+  -- better %
+  {
+    'andymass/vim-matchup',
+    config = function()
+      vim.g.matchup_matchparen_offscreen = { method = 'popup' }
+    end,
+  },
 }

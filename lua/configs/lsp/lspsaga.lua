@@ -38,6 +38,7 @@ return {
     split = 'i',
     tabe = 't',
     quit = { ';', '<ESC>' },
+    methods = { ['tyd'] = 'textDocument/typeDefinition' },
   },
 
   diagnostic = {

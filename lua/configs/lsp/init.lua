@@ -19,10 +19,6 @@ local function lsp_keymaps(bufnr)
     vim.lsp.buf.signature_help()
   end, buf_opts)
 
-  -- vim.keymap.set("n", "<leader>ca", function()
-  -- 	vim.lsp.buf.code_action()
-  -- end, buf_opts)
-
   keymap('n', '<leader>lh', function()
     if vim.lsp.inlay_hint.is_enabled(0) then
       vim.cmd 'lua=vim.lsp.inlay_hint.enable(0, false)'

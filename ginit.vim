@@ -68,4 +68,4 @@ if vim.g.neovide then
   vim.keymap.set("n", "<F10>", toggle_transparency, { silent = true })
 end
 
-EOf
+EOF
