@@ -49,4 +49,5 @@ return {
     end,
   },
   { 'windwp/nvim-autopairs', disabled = true },
+  { 'cespare/vim-toml' },
 }

@@ -30,6 +30,8 @@ return {
       vim.cmd 'colorscheme gruvbox'
       vim.cmd 'highlight SignColumn guibg=NONE'
 
+      -- ref https://github.com/jonhoo/configs/blob/b1807b623b1ef00139f9cedd059f6a4f90b21736/editor/.config/nvim/init.lua#L255
+      -- Comments are now VISIBLE (to my colorblidn ass)
       local bools = vim.api.nvim_get_hl(0, { name = 'Macro' })
       vim.api.nvim_set_hl(0, 'Comment', bools)
       -- Make it clearly visible which argument we're at.
