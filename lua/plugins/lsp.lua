@@ -24,15 +24,6 @@ return {
           end,
         },
       },
-      -- {
-      --   'nvimdev/lspsaga.nvim',
-      --   init = function()
-      --     vim.keymap.set('n', '<leader>ca', '<cmd>Lspsaga code_action<cr>', { silent = true })
-      --     vim.keymap.set('v', '<leader>ca', '<cmd>Lspsaga code_action<cr>', { silent = true })
-      --     vim.keymap.set('n', '<leader>rr', '<cmd>Lspsaga rename<cr>', { silent = true })
-      --   end,
-      --   opts = require 'configs.lsp.lspsaga',
-      -- },
       {
         'hrsh7th/nvim-cmp',
         event = { 'InsertEnter', 'CmdLineEnter' },
