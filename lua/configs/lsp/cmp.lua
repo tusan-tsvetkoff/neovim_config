@@ -1,7 +1,7 @@
 ---@diagnostic disable-next-line: different-requires
 local cmp = require 'cmp'
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local border_opts = { border = 'single', winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None', scrollbar = false }
+local border_opts = { winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None', scrollbar = false }
 local icons = require 'icons'
 local context = require 'cmp.config.context'
 
@@ -41,7 +41,7 @@ return {
           return not context.in_syntax_group 'Comment' or not context.in_treesitter_capture 'comment'
         end,
       },
-      { name = 'path', priority = 250 },
+      { name = 'path' },
       {
         name = 'buffer',
         option = { keyword_length = 4, keyword_pattern = [[\k\+]] },
