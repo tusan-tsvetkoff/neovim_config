@@ -13,13 +13,12 @@ local config = {
   signs = {
     active = signs,
   },
-  update_in_insert = true,
+  update_in_insert = false,
   underline = true,
   severity_sort = true,
   float = {
     focusable = false,
     style = 'minimal',
-    border = 'rounded',
     source = 'always',
     header = '',
     prefix = '',
@@ -67,7 +66,7 @@ vim.diagnostic.config {
 vim.diagnostic.config(config)
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'rounded',
+  border = 'rounded'
 })
 
 vim.lsp.handlers['textDocument/codeLens'] = vim.lsp.with(vim.lsp.handlers.codeLens, {
@@ -83,6 +82,7 @@ vim.lsp.handlers['workspace/workspaceFolders'] = vim.lsp.with(vim.lsp.handlers.w
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   underline = true,
+  border = 'rounded',
   virtual_text = {
     spacing = 5,
     severity_limit = 'Warning',

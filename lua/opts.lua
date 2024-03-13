@@ -102,7 +102,7 @@ opt.colorcolumn = '80'
 vim.api.nvim_create_autocmd('Filetype', { pattern = 'rust', command = 'set colorcolumn=100' })
 
 -- Set completeopt to have a better completion experience
-opt.completeopt = { 'menuone', 'noselect' }
+opt.completeopt = { 'menu', 'menuone' }
 opt.termguicolors = true
 
 -- make all keymaps silent by default

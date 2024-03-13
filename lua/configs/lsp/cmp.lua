@@ -8,8 +8,17 @@ local context = require 'cmp.config.context'
 return {
   cmp.setup {
     window = {
-      completion = cmp.config.window.bordered(border_opts),
-      documentation = cmp.config.window.bordered(border_opts),
+      completion = {
+        winhighlight = 'Normal:CmpMenu,CursorLine:PmenuSel,FloatBorder:CmpMenu,Search:None',
+        col_offset = -4,
+        side_padding = 1,
+        scrollbar = false,
+        border = 'rounded',
+      },
+      documentation = {
+        winhighlight = 'Normal:Normal,FloatBorder:CmpMenu,CursorLine:CursorLineBG,Search:None',
+        border = 'rounded',
+      },
     },
     snippet = {
       expand = function(args)
@@ -49,25 +58,34 @@ return {
     },
     formatting = {
       fields = { 'abbr', 'kind', 'menu' },
-      format = function(entry, vim_item)
-        -- Kind icons
-        vim_item.kind = string.format('%s %s', icons.kind[vim_item.kind], vim_item.kind)
+      format = function(entry, item)
 
-        vim_item.menu = ({
-          nvim_lsp = '[LSP]',
-          luasnip = '[Snip]',
-          nvim_lua = '[NvLua]',
-          buffer = '[Buf]',
-        })[entry.source.name]
+        item.kind = string.format('%s %s', icons.kind[item.kind], item.kind)
 
-        vim_item.dup = ({
+        -- item.menu = ({
+        --   nvim_lsp = '[LSP]',
+        --   luasnip = '[Snip]',
+        --   nvim_lua = '[NvLua]',
+        --   buffer = '[Buf]',
+        -- })[entry.source.name]
+
+        local half_win_width = math.floor(vim.api.nvim_win_get_width(0) * 0.5)
+        if vim.api.nvim_strwidth(item.abbr) > half_win_width then
+          item.abbr = ('%s…'):format(item.abbr:sub(1, half_win_width))
+        end
+
+        if item.menu then -- Add exta space to visually differentiate `abbr` and `menu`
+          item.abbr = ('%s '):format(item.abbr)
+        end
+
+        item.dup = ({
           luasnip = 1,
           nvim_lsp = 0,
           nvim_lua = 0,
           buffer = 0,
         })[entry.source.name] or 0
 
-        return vim_item
+        return item
       end,
     },
   },

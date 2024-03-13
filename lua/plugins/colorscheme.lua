@@ -29,6 +29,8 @@ return {
       }
       vim.cmd 'colorscheme gruvbox'
       vim.cmd 'highlight SignColumn guibg=NONE'
+      vim.cmd 'highlight NormalFloat guibg=NONE guifg=NONE'
+      vim.cmd 'highlight FloatBorder guibg=NONE guifg=NONE'
 
       -- ref https://github.com/jonhoo/configs/blob/b1807b623b1ef00139f9cedd059f6a4f90b21736/editor/.config/nvim/init.lua#L255
       -- Comments are now VISIBLE (to my colorblidn ass)
