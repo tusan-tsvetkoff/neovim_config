@@ -30,6 +30,17 @@ vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = 'rounded',
 })
 
+vim.lsp.handlers['textDocument/codeLens'] = vim.lsp.with(vim.lsp.handlers.codeLens, {
+  dynamicRegistration = true,
+})
+
+vim.lsp.handlers['workspace/workspaceFolders'] = vim.lsp.with(vim.lsp.handlers.workspaceFolders, {
+  library = {
+    [vim.fn.expand '$VIMRUNTIME/lua'] = true,
+    [vim.fn.expand '$VIMRUNTIME/lua/vim/lsp'] = true,
+  },
+})
+
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   underline = true,
   virtual_text = {
@@ -39,6 +50,6 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
   update_in_insert = true,
 })
 
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  border = 'rounded',
-})
+-- vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+--   border = 'rounded',
+-- })

@@ -24,23 +24,42 @@ return {
           end,
         },
       },
-      {
-        'nvimdev/lspsaga.nvim',
-        init = function()
-          vim.keymap.set('n', '<leader>ca', '<cmd>Lspsaga code_action<cr>', { silent = true })
-          vim.keymap.set('v', '<leader>ca', '<cmd>Lspsaga code_action<cr>', { silent = true })
-          vim.keymap.set('n', '<leader>rr', '<cmd>Lspsaga rename<cr>', { silent = true })
-        end,
-        opts = require 'configs.lsp.lspsaga',
-      },
+      -- {
+      --   'nvimdev/lspsaga.nvim',
+      --   init = function()
+      --     vim.keymap.set('n', '<leader>ca', '<cmd>Lspsaga code_action<cr>', { silent = true })
+      --     vim.keymap.set('v', '<leader>ca', '<cmd>Lspsaga code_action<cr>', { silent = true })
+      --     vim.keymap.set('n', '<leader>rr', '<cmd>Lspsaga rename<cr>', { silent = true })
+      --   end,
+      --   opts = require 'configs.lsp.lspsaga',
+      -- },
       {
         'hrsh7th/nvim-cmp',
         event = { 'InsertEnter', 'CmdLineEnter' },
         config = function()
+          local cmp = require 'cmp'
+
+          cmp.setup.cmdline(':', {
+            autocomplete = { cmp.TriggerEvent.TextChanged },
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+              { name = 'path', option = { trailing_slash = true } },
+            }, {
+              { name = 'cmdline', length = 3 },
+            }),
+          })
+          cmp.setup.filetype('help', {
+            window = {
+              documentation = cmp.config.disable,
+            },
+          })
+          ---@diagnostic disable-next-line: different-requires
           require 'configs.lsp.cmp'
+          local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+          cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
         end,
         dependencies = {
-          'hrsh7th/cmp-nvim-lua',
+          -- 'hrsh7th/cmp-nvim-lua',
           'hrsh7th/cmp-nvim-lsp',
           'hrsh7th/cmp-buffer',
           'hrsh7th/cmp-path',

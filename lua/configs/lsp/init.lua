@@ -5,15 +5,26 @@ local cmp_lsp = require 'cmp_nvim_lsp'
 
 M.capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
+vim.keymap.set('n', 'gl', vim.diagnostic.open_float)
+vim.keymap.set('n', 'ge', vim.diagnostic.goto_prev)
+vim.keymap.set('n', 'gp', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+
 local function lsp_keymaps(bufnr)
   local buf_opts = { buffer = bufnr, silent = true }
-  keymap('n', 'gD', '<cmd>Lspsaga finder<cr>', buf_opts)
-  keymap('n', 'gd', '<cmd>Lspsaga goto_definition<cr>', buf_opts)
-  keymap('n', 'gl', '<cmd>Lspsaga show_line_diagnostics<cr>', buf_opts)
-  keymap('n', 'gc', '<cmd>Lspsaga show_cursor_diagnostics<cr>', buf_opts)
-  keymap('n', 'gp', '<cmd>Lspsaga peek_definition<cr>', buf_opts)
-  keymap('n', 'K', '<cmd>Lspsaga hover_doc<cr>', buf_opts)
-  keymap('n', 'gi', '<cmd>Telescope lsp_implementations<cr>', buf_opts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, buf_opts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, buf_opts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, buf_opts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, buf_opts)
+  -- vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, buf_opts)
+  -- vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, buf_opts)
+  vim.keymap.set('n', '<leader>wl', function()
+    vim.api.nvim_notify(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, buf_opts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, buf_opts)
+  vim.keymap.set('n', '<leader>rr', vim.lsp.buf.rename, buf_opts)
+  vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, buf_opts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, buf_opts)
 
   keymap('i', '<C-h>', function()
     vim.lsp.buf.signature_help()
@@ -66,16 +77,17 @@ local function get_client_name(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
-  if get_client_name(bufnr) then
-    local token_modifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
-    for i, v in ipairs(token_modifiers) do
-      token_modifiers[i] = to_snake_case(v)
-    end
-    local token_types = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
-    for i, v in ipairs(token_types) do
-      token_types[i] = to_snake_case(v)
-    end
-  end
+  client.server_capabilities.semanticTokensProvider = nil
+  -- if get_client_name(bufnr) then
+  --   local token_modifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
+  --   for i, v in ipairs(token_modifiers) do
+  --     token_modifiers[i] = to_snake_case(v)
+  --   end
+  --   local token_types = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
+  --   for i, v in ipairs(token_types) do
+  --     token_types[i] = to_snake_case(v)
+  --   end
+  -- end
   lsp_keymaps(bufnr)
   lsp_highlight(client, bufnr)
 end

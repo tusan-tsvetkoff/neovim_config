@@ -16,6 +16,13 @@ vim.filetype.add {
   },
 }
 
+autocmd('FileType', {
+  pattern = 'rust',
+  callback = function()
+    vim.opt.colorcolumn = '100'
+  end,
+})
+
 autocmd('BufReadPost', {
   callback = function()
     if fn.line '\'"' > 1 and fn.line '\'"' <= fn.line '$' then

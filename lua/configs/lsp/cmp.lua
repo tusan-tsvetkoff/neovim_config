@@ -1,6 +1,10 @@
+---@diagnostic disable-next-line: different-requires
 local cmp = require 'cmp'
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local border_opts = { border = 'single', winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None' }
+local border_opts = { border = 'single', winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None', scrollbar = false }
+local icons = require 'icons'
+local context = require 'cmp.config.context'
+
 return {
   cmp.setup {
     window = {
@@ -22,26 +26,49 @@ return {
       },
     },
     sources = {
-      { name = 'nvim_lsp' },
+      {
+        name = 'nvim_lsp',
+        filter = function(_, _)
+          return not context.in_syntax_group 'Comment' or not context.in_treesitter_capture 'comment'
+        end,
+      },
       { name = 'path', priority = 250 },
-      { name = 'buffer', keyword_length = 3, priority = 500 },
+      {
+        name = 'buffer',
+        option = { keyword_length = 4, keyword_pattern = [[\k\+]] },
+      },
+      {
+        name = 'luasnip',
+        filter = function(_, _)
+          return not context.in_syntax_group 'Comment' or not context.in_treesitter_capture 'comment'
+        end,
+      },
+      { name = 'nvim_lua' },
+      { name = 'treesitter' },
+      { name = 'path', option = { trailing_slash = true } },
     },
     formatting = {
       fields = { 'abbr', 'kind', 'menu' },
-      format = require('lspkind').cmp_format {
-        mode = 'symbol_text',
-        maxwidth = 50,
-        ellipsis_char = '…',
-        menu = {
+      format = function(entry, vim_item)
+        -- Kind icons
+        vim_item.kind = string.format('%s %s', icons.kind[vim_item.kind], vim_item.kind)
+
+        vim_item.menu = ({
           nvim_lsp = '[LSP]',
-          ultisnips = '[US]',
-          nvim_lua = '[Lua]',
-          path = '[Path]',
-          buffer = '[Buffer]',
-          emoji = '[Emoji]',
-          omni = '[Omni]',
-        },
-      },
+          luasnip = '[Snip]',
+          nvim_lua = '[NvLua]',
+          buffer = '[Buf]',
+        })[entry.source.name]
+
+        vim_item.dup = ({
+          luasnip = 1,
+          nvim_lsp = 0,
+          nvim_lua = 0,
+          buffer = 0,
+        })[entry.source.name] or 0
+
+        return vim_item
+      end,
     },
   },
 }

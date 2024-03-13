@@ -5,7 +5,6 @@ vim.scriptencoding = 'utf-8'
 --------------------------------------------------------
 
 opt.hlsearch = true
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 opt.incsearch = true
 
@@ -20,7 +19,6 @@ vim.opt.list = true
 --- except in Rust where the rule is 100 characters
 -- show more hidden characters
 -- also, show tabs nicer
-vim.opt.listchars = 'tab:^ ,nbsp:¬,extends:»,precedes:«,trail:•'
 
 -- Pseudo transparency for completion menu
 opt.pumblend = 10
@@ -33,9 +31,23 @@ opt.mousemoveevent = true
 opt.cursorline = true
 
 opt.cmdheight = 1
-
+opt.listchars = vim.opt.listchars:append { tab = '⇥ ', eol = '↲', trail = '~', space = '_', nbsp = '␣' }
+opt.fillchars = [[eob: ,fold:󰇘,foldopen:,foldsep: ,foldclose:]]
 -- Soy
 opt.clipboard = 'unnamedplus'
+opt.wildignore = {
+  '*.DS_Store',
+  '*.bak',
+  '*.gif',
+  '*.jpeg',
+  '*.jpg',
+  '*.png',
+  '*.swp',
+  '*.zip',
+  '*/.git/*',
+}
+opt.shortmess = vim.opt.shortmess:append 'c' -- do not pass messages to ins-completion-menu
+opt.whichwrap = vim.opt.whichwrap:append '<,>,[,],h,l'
 
 -- Enable break indent
 opt.wrap = false
@@ -75,6 +87,10 @@ opt.sidescrolloff = 4
 
 -- Keep signcolumn on by default
 opt.signcolumn = 'yes'
+opt.showmatch = true
+
+-- Set wildmenu to longest
+opt.wildmode = 'list:longest'
 
 -- Decrease update time
 vim.opt.updatetime = 250

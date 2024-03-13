@@ -61,18 +61,27 @@ return {
     'rafamadriz/friendly-snippets',
     'benfowler/telescope-luasnip.nvim',
   },
-  config = function()
+  -- Luasnip Configuration
+  opts = function(_, o)
+    o.history = true
+    o.updateevents = 'TextChanged, TextChangedI'
+    o.delete_check_events = 'TextChanged, InsertEnter'
+    o.enable_autosnippets = true
+    o.exet_prio_increase = 1
+  end,
+  config = function(_, opts)
+    -- Sources for snippets
     local luasnip = require 'luasnip'
-    luasnip.config.set_config {
-      enable_autosnippets = true,
-      history = true,
-    }
-    luasnip.config.setup {
-      enable_autosnippets = true,
-      history = true,
-    }
-    require('luasnip.loaders.from_vscode').lazy_load()
-    -- require('luasnip').filetype_extend('lua', { 'luadoc' })
+    if opts then
+      luasnip.config.setup(opts)
+    end
+    vim.tbl_map(function(type)
+      require('luasnip.loaders.from_' .. type).lazy_load()
+    end, { 'vscode', 'lua' })
+
+    require('luasnip').filetype_extend('lua', { 'luadoc' })
+    require('luasnip').filetype_extend('rust', { 'rustdoc' })
+    require('luasnip').filetype_extend('cs', { 'csharpdoc' })
 
     luasnip.add_snippets(nil, {
       cs = {
@@ -92,7 +101,5 @@ return {
         }),
       },
     })
-
-    luasnip.setup()
   end,
 }
