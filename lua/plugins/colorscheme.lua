@@ -30,7 +30,7 @@ return {
       vim.cmd 'colorscheme gruvbox'
       vim.cmd 'highlight SignColumn guibg=NONE'
 
-      local bools = vim.api.nvim_get_hl(0, { name = 'Boolean' })
+      local bools = vim.api.nvim_get_hl(0, { name = 'Macro' })
       vim.api.nvim_set_hl(0, 'Comment', bools)
       -- Make it clearly visible which argument we're at.
       local marked = vim.api.nvim_get_hl(0, { name = 'PMenu' })
