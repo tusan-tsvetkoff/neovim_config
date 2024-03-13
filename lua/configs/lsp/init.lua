@@ -2,6 +2,7 @@ local M = {}
 local keymap = vim.keymap.set
 
 local cmp_lsp = require 'cmp_nvim_lsp'
+local codelens = require 'configs.lsp.lspconfig'
 
 M.capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
@@ -77,7 +78,6 @@ local function get_client_name(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
-  client.server_capabilities.semanticTokensProvider = nil
   -- if get_client_name(bufnr) then
   --   local token_modifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
   --   for i, v in ipairs(token_modifiers) do
@@ -88,8 +88,10 @@ M.on_attach = function(client, bufnr)
   --     token_types[i] = to_snake_case(v)
   --   end
   -- end
+  codelens.setup_codelens_refresh(client, bufnr)
   lsp_keymaps(bufnr)
   lsp_highlight(client, bufnr)
+  client.server_capabilities.semanticTokensProvider = nil
 end
 
 return M
