@@ -76,6 +76,11 @@ map('n', '<C-u>', '<C-u>zz')
 map('n', 'n', 'nzzzv')
 map('n', 'N', 'Nzzzv')
 
+map('n', 'j', 'gj')
+map('n', 'k', 'gk')
+
+map('x', 'p', [["_dP]])
+
 map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Insert Mode (from @chrisgrieser)

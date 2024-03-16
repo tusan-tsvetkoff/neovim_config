@@ -60,9 +60,10 @@ return {
       { name = 'path', option = { trailing_slash = true } },
     },
     formatting = {
-      fields = { 'abbr', 'kind', 'menu' },
+      fields = { 'kind', 'abbr', 'menu' },
       format = function(entry, item)
-        item.kind = string.format('%s %s', icons.kind[item.kind], item.kind)
+        -- item.kind = string.format('%s %s', icons.kind[item.kind], item.kind) -- Icon and kind
+        item.kind = string.format('%s', icons.kind[item.kind]) -- Only icon
 
         -- item.menu = ({
         --   nvim_lsp = '[LSP]',

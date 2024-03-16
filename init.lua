@@ -1,5 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+local U = require('utils')
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -61,3 +62,9 @@ require('opts')
 require('keymaps')
 require('autocmds')
 require('globals')
+
+local tele_hls = U.telescope_hls()
+for group, colors in pairs(tele_hls.highlights.init()) do
+  local set_hl = vim.api.nvim_set_hl
+  set_hl(0, group, colors)
+end

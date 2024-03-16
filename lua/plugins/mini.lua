@@ -17,14 +17,12 @@ local clients_min_format = function(clients)
       client = #client >= 3 and string.sub(client, 1, 3) or client
       table.insert(new_client_names, client)
     end
-    local res = string.format(
+    return string.format(
       '%s[󰒓 LSP] %s %s',
       copilot_exists and ' ' or '',
       first_client,
       table.concat(new_client_names, '')
     )
-    print(res)
-    return res
   end
 end
 

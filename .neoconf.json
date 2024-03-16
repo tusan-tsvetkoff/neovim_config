@@ -4,8 +4,7 @@
       "enabled": true,
       "plugins": [
         "nvim-lspconfig",
-        "lsp",
-        "neoconf.nvim"
+        "lsp"
       ]
     }
   },
