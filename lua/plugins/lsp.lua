@@ -1,5 +1,6 @@
 return {
   { 'folke/neoconf.nvim', opts = {} },
+  { 'folke/neodev.nvim', opts = {} },
   {
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -20,7 +21,7 @@ return {
         dependencies = {
           'williamboman/mason-lspconfig.nvim',
           config = function()
-            require 'configs.lsp.mason'
+            require('configs.lsp.mason')
           end,
         },
       },
@@ -28,7 +29,7 @@ return {
         'hrsh7th/nvim-cmp',
         event = { 'InsertEnter', 'CmdLineEnter' },
         config = function()
-          local cmp = require 'cmp'
+          local cmp = require('cmp')
 
           cmp.setup.cmdline(':', {
             autocomplete = { cmp.TriggerEvent.TextChanged },
@@ -45,8 +46,8 @@ return {
             },
           })
           ---@diagnostic disable-next-line: different-requires
-          require 'configs.lsp.cmp'
-          local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+          require('configs.lsp.cmp')
+          local cmp_autopairs = require('nvim-autopairs.completion.cmp')
           cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
         end,
         dependencies = {
@@ -96,12 +97,12 @@ return {
       {
         'j-hui/fidget.nvim',
         config = function()
-          require('fidget').setup {}
+          require('fidget').setup({})
         end,
       },
     },
     config = function()
-      require 'configs.lsp.lspconfig'
+      require('configs.lsp.lspconfig')
     end,
   },
 }

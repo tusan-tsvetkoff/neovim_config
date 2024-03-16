@@ -2,7 +2,7 @@ return {
   {
     'rcarriga/nvim-notify',
     config = function()
-      require('notify').setup {
+      require('notify').setup({
         level = 2,
         minimum_width = 50,
         render = 'default',
@@ -16,8 +16,8 @@ return {
           DEBUG = '',
           TRACE = '✎',
         },
-      }
-      local notify = require 'notify'
+      })
+      local notify = require('notify')
       vim.notify = notify
       vim.api.nvim_notify = notify
     end,

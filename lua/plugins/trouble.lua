@@ -9,9 +9,9 @@ return {
       { '<leader>tt', '<cmd>TodoTrouble<cr>', { silent = true } },
     },
     config = function()
-      require('trouble').setup {
+      require('trouble').setup({
         icons = true,
-      }
+      })
     end,
   },
 }

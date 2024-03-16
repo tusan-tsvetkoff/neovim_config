@@ -8,7 +8,7 @@ return {
     snippet_engine = 'luasnip',
   },
   config = function(_, opts)
-    local neogen = require 'neogen'
+    local neogen = require('neogen')
     neogen.setup(opts or {})
 
     -- vim.keymap.set("n", "<leader>df", function()

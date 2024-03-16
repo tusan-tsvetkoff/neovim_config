@@ -1,5 +1,32 @@
-local header = require 'dashboards'
-local icons = require 'icons'
+local header = require('dashboards')
+local icons = require('icons')
+local copilot_exists = false
+
+local clients_min_format = function(clients)
+  if #clients == 0 or clients[1] == nil then
+    return ''
+  end
+  if #clients == 1 then
+    return string.format('%s[󰒓 LSP] %s', copilot_exists and ' ' or '', clients[1])
+  else
+    local first_client = clients[1]
+    table.remove(clients, 1)
+    local new_client_names = {}
+    for _, client in ipairs(clients) do
+      copilot_exists = client == '' and true or false
+      client = #client >= 3 and string.sub(client, 1, 3) or client
+      table.insert(new_client_names, client)
+    end
+    local res = string.format(
+      '%s[󰒓 LSP] %s %s',
+      copilot_exists and ' ' or '',
+      first_client,
+      table.concat(new_client_names, '')
+    )
+    print(res)
+    return res
+  end
+end
 
 local function split_string(inputstr, sep)
   if sep == nil then
@@ -13,7 +40,7 @@ local function split_string(inputstr, sep)
 end
 
 local function trunc_file_name()
-  local full_path = vim.fn.expand '%:p'
+  local full_path = vim.fn.expand('%:p')
   local parent = vim.fn.fnamemodify(full_path, ':h:t')
   local name = vim.fn.fnamemodify(full_path, ':t')
 
@@ -30,7 +57,9 @@ end
 
 return {
   {
-    'echasnovski/mini.nvim',
+    -- 'echasnovski/mini.nvim',
+    'tusan/mini.nvim',
+    dev = true,
     dependencies = {
       {
         'lewis6991/gitsigns.nvim',
@@ -67,62 +96,60 @@ return {
       { 'f-person/git-blame.nvim', opts = {} },
     },
     config = function()
-      require('mini.ai').setup { n_lines = 500 }
-      require('mini.starter').setup { header = header.get_header }
+      require('mini.ai').setup({ n_lines = 500 })
+      require('mini.starter').setup({ header = header.get_header })
       require('mini.indentscope').setup()
 
-      vim.g.gitblame_display_virtual_text = 0
-      vim.g.gitblame_date_format = '%r'
-      vim.g.gitblame_message_template = '<summary> • <date> • <author>'
-      local gb = require 'gitblame'
-      local s = require 'mini.statusline'
+      local s = require('mini.statusline')
 
-      s.setup {
+      s.setup({
+        use_git_blame = true,
         content = {
           active = function()
-            local mode, mode_hl = s.section_mode { trunc_width = 120 }
-            local git = s.section_git { trunc_width = 75 }
+            local mode, mode_hl = s.section_mode({ trunc_width = 120 })
+            local git = s.section_git({ trunc_width = 75 })
             local git_parts = split_string(git, ' ')[2]
             local git_section = string.format('%s %s', icons.general.branch, git_parts)
             git = git_parts ~= nil and git_section or ''
-            local git_blame = gb.is_blame_text_available() and gb.get_current_blame_text() or ''
-            local diagnostics = s.section_diagnostics { trunc_width = 75 }
-            local fileinfo = s.section_fileinfo { trunc_width = 120 }
-            local search = s.section_searchcount { trunc_width = 75 }
+            local my_git_blame = s.section_git_blame({ trunc_width = 120 })
+            local diagnostics = s.section_diagnostics({ trunc_width = 75 })
+            local fileinfo = s.section_fileinfo({ trunc_width = 120 })
+            local search = s.section_searchcount({ trunc_width = 75 })
             local location = function()
               return '%2l:%-2v'
             end
 
             local split_info = split_string(fileinfo, ' ')
             local icon = split_info[1]
-            local type = split_info[2]
 
             local clients = {}
-            for _, client in ipairs(vim.lsp.get_clients { bufnr = 0 }) do
+            for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
               if client.name ~= 'copilot' then
                 table.insert(clients, client.name)
               else
-                table.insert(clients, '')
+                copilot_exists = true
               end
             end
 
-            local lsp_clients = #clients == 1 and (string.format('󰭟 %s', clients[1])) or (string.format('󰭟 %s', table.concat(clients, ' • ')))
-
-            return s.combine_groups {
-              { hl = mode_hl, strings = { string.format('%s %s', icons.general.neovim, mode) } },
+            return s.combine_groups({
+              {
+                hl = mode_hl,
+                strings = { string.format('%s %s', icons.general.neovim, mode) },
+              },
               { hl = 'MiniStatusLineDevInfo', strings = { git, diagnostics } },
               '%<',
               { hl = 'MiniStatuslineFilename', strings = { icon, trunc_file_name() } },
               '%=',
-              '%<',
-              { hl = 'MiniStatuslineFilename', strings = { git_blame } },
-              '%=',
-              { hl = 'MiniStatuslineFileinfo', strings = { string.format('%s %s', type or '', lsp_clients) } },
+              { hl = 'MiniStatuslineFilename', strings = { my_git_blame } },
+              {
+                hl = 'MiniStatuslineFileinfo',
+                strings = { clients_min_format(clients) },
+              },
               { hl = mode_hl, strings = { search, location() } },
-            }
+            })
           end,
         },
-      }
+      })
     end,
   },
 }

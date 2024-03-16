@@ -31,7 +31,8 @@ opt.mousemoveevent = true
 opt.cursorline = true
 
 opt.cmdheight = 1
-opt.listchars = vim.opt.listchars:append { tab = '⇥ ', eol = '↲', trail = '~', space = '_', nbsp = '␣' }
+opt.listchars =
+  vim.opt.listchars:append({ tab = '⇥ ', eol = '↲', trail = '~', space = '_', nbsp = '␣' })
 opt.fillchars = [[eob: ,fold:󰇘,foldopen:,foldsep: ,foldclose:]]
 -- Soy
 opt.clipboard = 'unnamedplus'
@@ -46,8 +47,8 @@ opt.wildignore = {
   '*.zip',
   '*/.git/*',
 }
-opt.shortmess = vim.opt.shortmess:append 'c' -- do not pass messages to ins-completion-menu
-opt.whichwrap = vim.opt.whichwrap:append '<,>,[,],h,l'
+opt.shortmess = vim.opt.shortmess:append('c') -- do not pass messages to ins-completion-menu
+opt.whichwrap = vim.opt.whichwrap:append('<,>,[,],h,l')
 
 -- Enable break indent
 opt.wrap = false
@@ -99,7 +100,6 @@ vim.opt.timeoutlen = 300
 vim.opt.inccommand = 'split'
 
 opt.colorcolumn = '80'
-vim.api.nvim_create_autocmd('Filetype', { pattern = 'rust', command = 'set colorcolumn=100' })
 
 -- Set completeopt to have a better completion experience
 opt.completeopt = { 'menu', 'menuone' }

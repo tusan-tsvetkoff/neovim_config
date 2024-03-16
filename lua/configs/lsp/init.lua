@@ -1,10 +1,15 @@
 local M = {}
 local keymap = vim.keymap.set
 
-local cmp_lsp = require 'cmp_nvim_lsp'
-local codelens = require 'configs.lsp.lspconfig'
+local cmp_lsp = require('cmp_nvim_lsp')
+local codelens = require('configs.lsp.lspconfig')
 
-M.capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
+M.capabilities = vim.tbl_deep_extend(
+  'force',
+  {},
+  vim.lsp.protocol.make_client_capabilities(),
+  cmp_lsp.default_capabilities()
+)
 
 vim.keymap.set('n', 'gl', vim.diagnostic.open_float)
 vim.keymap.set('n', 'ge', vim.diagnostic.goto_prev)
@@ -33,23 +38,23 @@ local function lsp_keymaps(bufnr)
 
   keymap('n', '<leader>lh', function()
     if vim.lsp.inlay_hint.is_enabled(0) then
-      vim.cmd 'lua=vim.lsp.inlay_hint.enable(0, false)'
+      vim.cmd('lua=vim.lsp.inlay_hint.enable(0, false)')
     else
-      vim.cmd 'lua=vim.lsp.inlay_hint.enable(0, true)'
+      vim.cmd('lua=vim.lsp.inlay_hint.enable(0, true)')
     end
   end, { silent = true })
 end
 
 -- Highlight symbol under cursor
 local function lsp_highlight(client, bufnr)
-  if client.supports_method 'textDocument/documentHighlight' then
+  if client.supports_method('textDocument/documentHighlight') then
     vim.api.nvim_create_augroup('lsp_document_highlight', {
       clear = false,
     })
-    vim.api.nvim_clear_autocmds {
+    vim.api.nvim_clear_autocmds({
       buffer = bufnr,
       group = 'lsp_document_highlight',
-    }
+    })
     vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
       group = 'lsp_document_highlight',
       buffer = bufnr,
@@ -63,31 +68,7 @@ local function lsp_highlight(client, bufnr)
   end
 end
 
-local function to_snake_case(str)
-  return string.gsub(str, '%s*[- ]%s*', '_')
-end
-
-local function get_client_name(bufnr)
-  local clients = vim.lsp.get_clients { bufnr = bufnr }
-  for _, client in ipairs(clients) do
-    if client.name == 'omnisharp' then
-      return true
-    end
-  end
-  return false
-end
-
 M.on_attach = function(client, bufnr)
-  -- if get_client_name(bufnr) then
-  --   local token_modifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
-  --   for i, v in ipairs(token_modifiers) do
-  --     token_modifiers[i] = to_snake_case(v)
-  --   end
-  --   local token_types = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
-  --   for i, v in ipairs(token_types) do
-  --     token_types[i] = to_snake_case(v)
-  --   end
-  -- end
   codelens.setup_codelens_refresh(client, bufnr)
   lsp_keymaps(bufnr)
   lsp_highlight(client, bufnr)

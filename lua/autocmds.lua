@@ -4,17 +4,17 @@ local TusanGroup = augroup('Tusan', {})
 local fn = vim.fn
 
 local autocmd = vim.api.nvim_create_autocmd
-local yank_group = augroup('HighlightOnYank', {})
+local yank_group = augroup('HighlightOnYank', { clear = true })
 
 local general = augroup('General', { clear = true })
 
 local command = vim.api.nvim_create_user_command
 
-vim.filetype.add {
+vim.filetype.add({
   extension = {
     templ = 'templ',
   },
-}
+})
 
 autocmd('FileType', {
   pattern = 'rust',
@@ -25,8 +25,8 @@ autocmd('FileType', {
 
 autocmd('BufReadPost', {
   callback = function()
-    if fn.line '\'"' > 1 and fn.line '\'"' <= fn.line '$' then
-      vim.cmd 'normal! g`"'
+    if fn.line('\'"') > 1 and fn.line('\'"') <= fn.line('$') then
+      vim.cmd('normal! g`"')
     end
   end,
   group = general,
@@ -47,7 +47,7 @@ autocmd('ModeChanged', {
 
 autocmd('BufEnter', {
   callback = function()
-    vim.opt.formatoptions:remove { 'c', 'r', 'o' }
+    vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
   end,
   group = general,
   desc = 'Disable New Line Comment',
@@ -67,18 +67,16 @@ command('Format', function(args)
       ['end'] = { args.line2, end_line:len() },
     }
   end
-  conform.format { async = true, lsp_fallback = true, range = range }
+  conform.format({ async = true, lsp_fallback = true, range = range })
   vim.notify('Format Done', vim.log.levels.INFO, { title = 'Format' })
 end, { nargs = '*', desc = 'Code Format', range = true })
 
 autocmd('TextYankPost', {
+  desc = 'Highlight yanked text',
   group = yank_group,
   pattern = '*',
   callback = function()
-    vim.highlight.on_yank {
-      higroup = 'IncSearch',
-      timeout = 40,
-    }
+    vim.highlight.on_yank()
   end,
 })
 

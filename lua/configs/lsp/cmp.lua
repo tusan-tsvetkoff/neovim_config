@@ -1,12 +1,13 @@
 ---@diagnostic disable-next-line: different-requires
-local cmp = require 'cmp'
+local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local border_opts = { winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None', scrollbar = false }
-local icons = require 'icons'
-local context = require 'cmp.config.context'
+local border_opts =
+  { winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None', scrollbar = false }
+local icons = require('icons')
+local context = require('cmp.config.context')
 
 return {
-  cmp.setup {
+  cmp.setup({
     window = {
       completion = {
         winhighlight = 'Normal:CmpMenu,CursorLine:PmenuSel,FloatBorder:CmpMenu,Search:None',
@@ -25,20 +26,21 @@ return {
         require('luasnip').lsp_expand(args.body)
       end,
     },
-    mapping = cmp.mapping.preset.insert {
+    mapping = cmp.mapping.preset.insert({
       ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
       ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
       ['<C-Space>'] = cmp.mapping.complete(cmp_select),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<C-l>'] = cmp.mapping.confirm {
+      ['<C-l>'] = cmp.mapping.confirm({
         select = true,
-      },
-    },
+      }),
+    }),
     sources = {
       {
         name = 'nvim_lsp',
         filter = function(_, _)
-          return not context.in_syntax_group 'Comment' or not context.in_treesitter_capture 'comment'
+          return not context.in_syntax_group('Comment')
+            or not context.in_treesitter_capture('comment')
         end,
       },
       { name = 'path' },
@@ -49,7 +51,8 @@ return {
       {
         name = 'luasnip',
         filter = function(_, _)
-          return not context.in_syntax_group 'Comment' or not context.in_treesitter_capture 'comment'
+          return not context.in_syntax_group('Comment')
+            or not context.in_treesitter_capture('comment')
         end,
       },
       { name = 'nvim_lua' },
@@ -59,7 +62,6 @@ return {
     formatting = {
       fields = { 'abbr', 'kind', 'menu' },
       format = function(entry, item)
-
         item.kind = string.format('%s %s', icons.kind[item.kind], item.kind)
 
         -- item.menu = ({
@@ -88,5 +90,5 @@ return {
         return item
       end,
     },
-  },
+  }),
 }

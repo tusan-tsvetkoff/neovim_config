@@ -17,6 +17,7 @@ local config = {
   underline = true,
   severity_sort = true,
   float = {
+    border = 'rounded',
     focusable = false,
     style = 'minimal',
     source = 'always',
@@ -27,7 +28,7 @@ local config = {
 
 M.setup_codelens_refresh = function(client, bufnr)
   local status_ok, codelens_supported = pcall(function()
-    return client.supports_method 'textDocument/codeLens'
+    return client.supports_method('textDocument/codeLens')
   end)
   if not status_ok or not codelens_supported then
     return
@@ -38,7 +39,7 @@ M.setup_codelens_refresh = function(client, bufnr)
   })
 
   local group = 'lsp_code_lens_refresh'
-  local cl_events = { 'BufEnter', 'CursorHold', 'InsertLeave' }
+  local cl_events = { 'BufEnter', 'InsertLeave' }
   local ok, cl_autocmds = pcall(vim.api.nvim_get_autocmds, {
     group = group,
     buffer = bufnr,
@@ -57,16 +58,16 @@ M.setup_codelens_refresh = function(client, bufnr)
   })
 end
 
-vim.diagnostic.config {
+vim.diagnostic.config({
   on_init_callback = function(_)
     M.setup_codelens_refresh(_)
   end,
-}
+})
 
 vim.diagnostic.config(config)
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'rounded'
+  border = 'rounded',
 })
 
 vim.lsp.handlers['textDocument/codeLens'] = vim.lsp.with(vim.lsp.handlers.codeLens, {
@@ -75,18 +76,19 @@ vim.lsp.handlers['textDocument/codeLens'] = vim.lsp.with(vim.lsp.handlers.codeLe
 
 vim.lsp.handlers['workspace/workspaceFolders'] = vim.lsp.with(vim.lsp.handlers.workspaceFolders, {
   library = {
-    [vim.fn.expand '$VIMRUNTIME/lua'] = true,
-    [vim.fn.expand '$VIMRUNTIME/lua/vim/lsp'] = true,
+    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
   },
 })
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  underline = true,
-  border = 'rounded',
-  virtual_text = {
-    spacing = 5,
-    severity_limit = 'Warning',
-  },
-  update_in_insert = false,
-})
+vim.lsp.handlers['textDocument/publishDiagnostics'] =
+  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    underline = true,
+    border = 'rounded',
+    virtual_text = {
+      spacing = 5,
+      severity_limit = 'Warning',
+    },
+    update_in_insert = false,
+  })
 return M

@@ -3,8 +3,9 @@
     "library": {
       "enabled": true,
       "plugins": [
-        "neoconf.nvim",
-        "nvim-lspconfig"
+        "nvim-lspconfig",
+        "lsp",
+        "neoconf.nvim"
       ]
     }
   },
@@ -13,6 +14,11 @@
       "lua_ls": {
         "enabled": true
       }
+    }
+  },
+  "lspconfig": {
+    "lua_ls": {
+      "Lua.completion.callSnippet": "Replace"
     }
   }
 }

@@ -5,12 +5,12 @@ end
 local function get_namespace()
   local fname = vim.api.nvim_buf_get_name(0)
   print('fname: ', fname)
-  local util = require 'lspconfig.util'
-  local path = util.root_pattern '*.csproj'(fname)
-    or util.root_pattern '*.sln'(fname)
-    or util.root_pattern '*.sln' './'
-    or util.root_pattern '*.csproj' './'
-    or util.root_pattern '*.slnx' './'
+  local util = require('lspconfig.util')
+  local path = util.root_pattern('*.csproj')(fname)
+    or util.root_pattern('*.sln')(fname)
+    or util.root_pattern('*.sln')('./')
+    or util.root_pattern('*.csproj')('./')
+    or util.root_pattern('*.slnx')('./')
   print('path: ', path)
 
   if path == nil then
@@ -28,7 +28,8 @@ local function get_namespace()
 end
 
 local function get_class_name()
-  local start_index, end_index, file_name = string.find(vim.api.nvim_buf_get_name(0), '([a-zA-Z_@<>0-9]+).cs')
+  local start_index, end_index, file_name =
+    string.find(vim.api.nvim_buf_get_name(0), '([a-zA-Z_@<>0-9]+).cs')
   local name = file_name:gsub('.cs', ''):gsub('/', ''):gsub('\\', '')
 
   return name
@@ -71,7 +72,7 @@ return {
   end,
   config = function(_, opts)
     -- Sources for snippets
-    local luasnip = require 'luasnip'
+    local luasnip = require('luasnip')
     if opts then
       luasnip.config.setup(opts)
     end

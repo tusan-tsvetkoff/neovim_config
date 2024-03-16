@@ -1,4 +1,4 @@
 return {
-	-- "tusan/kovernet.nvim",
-	-- dev = true,
+  -- "tusan/kovernet.nvim",
+  -- dev = true,
 }

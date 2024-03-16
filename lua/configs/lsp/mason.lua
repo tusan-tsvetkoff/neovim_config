@@ -1,19 +1,19 @@
-local mason = require 'mason'
-local mason_lspconfig = require 'mason-lspconfig'
+local mason = require('mason')
+local mason_lspconfig = require('mason-lspconfig')
 local on_attach = require('configs.lsp').on_attach
 local capabilities = require('configs.lsp').capabilities
 
 local ok_neoconf, neoconf = pcall(require, 'neoconf')
 if ok_neoconf then
-  neoconf.setup {}
+  neoconf.setup({})
 end
 
--- local ok_neodev, neodev = pcall(require, "neodev")
--- if ok_neodev then
--- neodev.setup(require("configs.lsp.neodev"))
--- end
+local ok_neodev, neodev = pcall(require, 'neodev')
+if ok_neodev then
+  neodev.setup({})
+end
 
-mason.setup {
+mason.setup({
   ui = {
     -- Whether to automatically check for new versions when opening the :Mason window.
     check_outdated_packages_on_open = false,
@@ -24,9 +24,9 @@ mason.setup {
     },
   },
   -- install_root_dir = path.concat { vim.fn.stdpath "config", "/lua/custom/mason" },
-}
+})
 
-mason_lspconfig.setup {
+mason_lspconfig.setup({
   automatic_installation = true,
   ensure_installed = {
     -- Lua
@@ -41,14 +41,14 @@ mason_lspconfig.setup {
     'gopls',
     'omnisharp',
   },
-}
+})
 
 local disabled_servers = {
   'jdtls',
   'tsserver',
 }
 
-mason_lspconfig.setup_handlers {
+mason_lspconfig.setup_handlers({
   -- Automatically configure the LSP installed
   function(server_name)
     for _, name in pairs(disabled_servers) do
@@ -68,4 +68,4 @@ mason_lspconfig.setup_handlers {
 
     require('lspconfig')[server_name].setup(opts)
   end,
-}
+})

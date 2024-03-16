@@ -3,7 +3,12 @@ local fn = vim.fn
 
 -------------------------------------------------------------------------------
 -- ref https://github.com/kevinm6/nvim/blob/0c2d0fcb04be1f0837ae8918b46131f649cba775/lua/config/keymaps.lua#L77C1-L82C2
-map('n', '<C-s>', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Replace occurence from <cword>' })
+map(
+  'n',
+  '<C-s>',
+  [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  { desc = 'Replace occurence from <cword>' }
+)
 -- Paste non-linewise text above or below current line
 -- see https://stackoverflow.com/a/1346777/6064933
 map('n', '<leader>p', 'm`o<ESC>p``', { desc = 'Paste below current line' })
@@ -12,16 +17,16 @@ map('n', '<leader>P', 'm`O<ESC>p``', { desc = 'Paste above current line' })
 map('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 map('n', '<leader>sn', function()
-  require('telescope').extensions.notify.notify {}
+  require('telescope').extensions.notify.notify({})
 end, { silent = true, desc = 'Show notifications' })
 
 map('n', '<leader>rp', '<cmd>so %<cr>', { silent = true })
 
 -- copy [l]ast ex[c]ommand
 map('n', '<leader>lc', function()
-  local lastCommand = fn.getreg ':'
+  local lastCommand = fn.getreg(':')
   if lastCommand == '' then
-    vim.notify 'No last command available'
+    vim.notify('No last command available')
     return
   end
   fn.setreg('+', lastCommand)
@@ -50,16 +55,16 @@ map('n', 'J', 'mzJ`z', { desc = 'Keep cursor centered' })
 
 -- resize windows
 map('n', '<S-Up>', function()
-  vim.cmd.resize '+2'
+  vim.cmd.resize('+2')
 end)
 map('n', '<S-Down>', function()
-  vim.cmd.resize '-2'
+  vim.cmd.resize('-2')
 end)
 map('n', '<S-Left>', function()
-  vim.cmd 'vertical resize -2'
+  vim.cmd('vertical resize -2')
 end)
 map('n', '<S-Right>', function()
-  vim.cmd 'vertical resize +2'
+  vim.cmd('vertical resize +2')
 end)
 
 -- Repeated V selects more lines
@@ -78,7 +83,7 @@ map('i', '<C-e>', '<Esc>A', { desc = 'Go to EoL in I mode' }) -- EoL
 map('i', '<C-a>', '<Esc>I', { desc = 'Go to BoL in I mode' }) -- BoL
 
 map('n', 'i', function()
-  if vim.api.nvim_get_current_line():find '^%s*$' then
+  if vim.api.nvim_get_current_line():find('^%s*$') then
     return [["_cc]]
   end
   return 'i'
@@ -87,7 +92,7 @@ end, { expr = true, desc = 'Better i' })
 --- A lot of these are taken from @chrisgrieser, @folke, @jdhao and @theprimeagen
 ---
 --- Harpoon
-local harpoon = require 'harpoon'
+local harpoon = require('harpoon')
 
 map('n', '<C-a>', function()
   harpoon:list():append()
