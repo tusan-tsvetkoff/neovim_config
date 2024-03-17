@@ -74,13 +74,6 @@ vim.lsp.handlers["textDocument/codeLens"] = vim.lsp.with(vim.lsp.handlers.codeLe
   dynamicRegistration = true,
 })
 
-vim.lsp.handlers["workspace/workspaceFolders"] = vim.lsp.with(vim.lsp.handlers.workspaceFolders, {
-  library = {
-    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-  },
-})
-
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   underline = true,
   border = "rounded",

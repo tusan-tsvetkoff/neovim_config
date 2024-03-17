@@ -4,6 +4,7 @@ local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local border_opts = { winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None", scrollbar = false }
 local icons = require("icons")
 local context = require("cmp.config.context")
+local lspkind_ok, lspkind = pcall(require, "lspkind")
 
 return {
   cmp.setup({

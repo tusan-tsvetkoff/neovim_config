@@ -1,4 +1,35 @@
 local M = {}
+local I = require("icons")
+
+M.custom_lsp_format = function(entry, item)
+  item.abbr = string.format("%s %s", I.kind[item.kind], item.abbr)
+  -- item.kind = string.format('%s', icons.kind[item.kind]) -- Only icon
+
+  -- item.menu = ({
+  --   nvim_lsp = '[LSP]',
+  --   luasnip = '[Snip]',
+  --   nvim_lua = '[NvLua]',
+  --   buffer = '[Buf]',
+  -- })[entry.source.name]
+
+  local half_win_width = math.floor(vim.api.nvim_win_get_width(0) * 0.5)
+  if vim.api.nvim_strwidth(item.abbr) > half_win_width then
+    item.abbr = ("%s…"):format(item.abbr:sub(1, half_win_width))
+  end
+
+  if item.menu then -- Add exta space to visually differentiate `abbr` and `menu`
+    item.abbr = ("%s "):format(item.abbr)
+  end
+
+  item.dup = ({
+    luasnip = 1,
+    nvim_lsp = 0,
+    nvim_lua = 0,
+    buffer = 0,
+  })[entry.source.name] or 0
+
+  return item
+end
 
 M.get_hlgroup = function(name, fallback)
   if vim.fn.hlexists(name) == 1 then
