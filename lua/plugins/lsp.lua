@@ -14,9 +14,6 @@ return {
           "MasonUninstallAll",
           "MasonLog",
         },
-        init = function()
-          vim.keymap.set("n", "<leader>f", "<cmd>Format<cr>", { silent = true })
-        end,
         dependencies = {
           "williamboman/mason-lspconfig.nvim",
           config = function()
@@ -62,18 +59,18 @@ return {
       },
       {
         "stevearc/conform.nvim",
-        event = { "BufWritePre" },
+        event = { "BufWritePre", "BufNewFile" },
         opts = {
           formatters_by_ft = {
-            ["markdown"] = { { "prettierd", "prettier" }, "markdownlint" },
+            ["markdown"] = { "prettier", "markdownlint" },
             ["lua"] = { "stylua" },
-            ["json"] = { { "prettierd", "prettier" } },
-            ["yaml"] = { { "prettierd", "prettier" } },
-            ["toml"] = { { "prettierd", "prettier" } },
-            ["html"] = { { "prettierd", "prettier" } },
-            ["css"] = { { "prettierd", "prettier" } },
-            ["scss"] = { { "prettierd", "prettier" } },
-            ["javascript"] = { { "prettierd", "prettier", "dprint" } },
+            ["json"] = { "prettier" },
+            ["yaml"] = { "prettier" },
+            ["toml"] = { "prettier" },
+            ["html"] = { "prettier" },
+            ["css"] = { "prettier" },
+            ["scss"] = { "prettier" },
+            ["javascript"] = { "prettier", "dprint" },
             ["cs"] = { "csharpier" },
           },
           formatters = {
@@ -92,6 +89,23 @@ return {
             },
           },
         },
+        config = function(_, opts)
+          require("conform").setup(opts)
+          -- Customize the "injected" formatter
+          require("conform").formatters.injected = {
+            -- Set the options field
+            options = {
+              -- Set individual option values
+              ignore_errors = true,
+              lang_to_formatters = {
+                json = { "jq" },
+              },
+            },
+          }
+          vim.keymap.set({ "n", "v" }, "<leader>f", function()
+            require("conform").format({ async = false, timeout_ms = 500, lsp_fallback = true })
+          end, { silent = true })
+        end,
       },
       {
         "j-hui/fidget.nvim",
