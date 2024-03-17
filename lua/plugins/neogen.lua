@@ -1,14 +1,14 @@
 return {
-  'danymat/neogen',
-  dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  "danymat/neogen",
+  dependencies = { "nvim-treesitter/nvim-treesitter" },
   keys = {
-    { '<leader>ng', '<cmd>Neogen<CR>', desc = 'Generate func|class|type documentation' },
+    { "<leader>ng", "<cmd>Neogen<CR>", desc = "Generate func|class|type documentation" },
   },
   opts = {
-    snippet_engine = 'luasnip',
+    snippet_engine = "luasnip",
   },
   config = function(_, opts)
-    local neogen = require('neogen')
+    local neogen = require("neogen")
     neogen.setup(opts or {})
 
     -- vim.keymap.set("n", "<leader>df", function()

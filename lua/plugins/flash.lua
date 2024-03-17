@@ -1,5 +1,5 @@
 return {
-  'folke/flash.nvim',
+  "folke/flash.nvim",
   enabled = true,
   init = function()
     -- vim.keymap.set("n", "x", "<cmd>lua require('flash').jump()<cr>")

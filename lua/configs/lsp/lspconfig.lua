@@ -1,8 +1,8 @@
 local M = {}
 
-local signs = { Error = '', Warn = '', Hint = '󰌵', Info = '' }
+local signs = { Error = "", Warn = "", Hint = "󰌵", Info = "" }
 for type, icon in pairs(signs) do
-  local hl = 'DiagnosticSign' .. type
+  local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 end
 
@@ -17,29 +17,29 @@ local config = {
   underline = false,
   severity_sort = true,
   float = {
-    border = 'rounded',
+    border = "rounded",
     focusable = false,
-    style = 'minimal',
-    source = 'always',
-    header = '',
-    prefix = '',
+    style = "minimal",
+    source = "always",
+    header = "",
+    prefix = "",
   },
 }
 
 M.setup_codelens_refresh = function(client, bufnr)
   local status_ok, codelens_supported = pcall(function()
-    return client.supports_method('textDocument/codeLens')
+    return client.supports_method("textDocument/codeLens")
   end)
   if not status_ok or not codelens_supported then
     return
   end
 
-  vim.lsp.handlers['textDocument/codeLens'] = vim.lsp.with(vim.lsp.handlers.codeLens, {
+  vim.lsp.handlers["textDocument/codeLens"] = vim.lsp.with(vim.lsp.handlers.codeLens, {
     dynamicRegistration = true,
   })
 
-  local group = 'lsp_code_lens_refresh'
-  local cl_events = { 'BufEnter', 'InsertLeave' }
+  local group = "lsp_code_lens_refresh"
+  local cl_events = { "BufEnter", "InsertLeave" }
   local ok, cl_autocmds = pcall(vim.api.nvim_get_autocmds, {
     group = group,
     buffer = bufnr,
@@ -66,29 +66,28 @@ vim.diagnostic.config({
 
 vim.diagnostic.config(config)
 
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'rounded',
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
 })
 
-vim.lsp.handlers['textDocument/codeLens'] = vim.lsp.with(vim.lsp.handlers.codeLens, {
+vim.lsp.handlers["textDocument/codeLens"] = vim.lsp.with(vim.lsp.handlers.codeLens, {
   dynamicRegistration = true,
 })
 
-vim.lsp.handlers['workspace/workspaceFolders'] = vim.lsp.with(vim.lsp.handlers.workspaceFolders, {
+vim.lsp.handlers["workspace/workspaceFolders"] = vim.lsp.with(vim.lsp.handlers.workspaceFolders, {
   library = {
-    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
   },
 })
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] =
-  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = true,
-    border = 'rounded',
-    virtual_text = {
-      spacing = 5,
-      severity_limit = 'Warning',
-    },
-    update_in_insert = false,
-  })
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  underline = true,
+  border = "rounded",
+  virtual_text = {
+    spacing = 5,
+    severity_limit = "Warning",
+  },
+  update_in_insert = false,
+})
 return M

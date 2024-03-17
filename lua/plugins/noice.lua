@@ -1,28 +1,28 @@
 return {
   {
-    'rcarriga/nvim-notify',
+    "rcarriga/nvim-notify",
     config = function()
-      require('notify').setup({
+      require("notify").setup({
         level = 2,
         minimum_width = 50,
-        render = 'default',
-        stages = 'fade',
+        render = "default",
+        stages = "fade",
         timeout = 3000,
         top_down = true,
         icons = {
-          ERROR = '',
-          WARN = '',
-          INFO = '',
-          DEBUG = '',
-          TRACE = '✎',
+          ERROR = "",
+          WARN = "",
+          INFO = "",
+          DEBUG = "",
+          TRACE = "✎",
         },
       })
-      local notify = require('notify')
+      local notify = require("notify")
       vim.notify = notify
       vim.api.nvim_notify = notify
     end,
     dependencies = {
-      'MunifTanjim/nui.nvim',
+      "MunifTanjim/nui.nvim",
     },
   },
 }

@@ -7,7 +7,7 @@ end
 
 ---@param ... string
 RELOAD = function(...)
-  require('plenary.reload').reload_module(...)
+  require("plenary.reload").reload_module(...)
 end
 
 ---@param name string

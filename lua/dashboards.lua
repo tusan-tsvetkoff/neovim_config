@@ -78,7 +78,7 @@ local sunday = [[
 ]]
 
 local function get_date()
-  return os.date('%A, %B %d %Y') .. '\n'
+  return os.date("%A, %B %d %Y") .. "\n"
 end
 
 ---@type table
@@ -93,7 +93,7 @@ local days = {
 }
 
 local function get_day()
-  return days[os.date('*t').wday] .. '\n' or header .. '\n'
+  return days[os.date("*t").wday] .. "\n" or header .. "\n"
 end
 
 function M.get_header()

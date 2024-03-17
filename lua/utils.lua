@@ -7,20 +7,20 @@ M.get_hlgroup = function(name, fallback)
       hl = vim.api.nvim_get_hl(0, { name = name, link = false })
       if not hl.fg then
         ---@diagnostic disable-next-line: assign-type-mismatch
-        hl.fg = 'NONE'
+        hl.fg = "NONE"
       end
       if not hl.bg then
         ---@diagnostic disable-next-line: assign-type-mismatch
-        hl.bg = 'NONE'
+        hl.bg = "NONE"
       end
     else
       ---@diagnostic disable-next-line: deprecated
       hl = vim.api.nvim_get_hl_by_name(name, vim.o.termguicolors)
       if not hl.foreground then
-        hl.foreground = 'NONE'
+        hl.foreground = "NONE"
       end
       if not hl.background then
-        hl.background = 'NONE'
+        hl.background = "NONE"
       end
       hl.fg, hl.bg = hl.foreground, hl.background
       hl.ctermfg, hl.ctermbg = hl.fg, hl.bg
@@ -36,11 +36,11 @@ M.telescope_hls = function()
     highlights = {
       init = function()
         -- get highlights from highlight groups
-        local normal = M.get_hlgroup('Normal')
+        local normal = M.get_hlgroup("Normal")
         local fg, bg = normal.fg, normal.bg
-        local bg_alt = M.get_hlgroup('Visual').bg
-        local green = M.get_hlgroup('String').fg
-        local red = M.get_hlgroup('Error').fg
+        local bg_alt = M.get_hlgroup("Visual").bg
+        local green = M.get_hlgroup("String").fg
+        local red = M.get_hlgroup("Error").fg
         return {
           TelescopeBorder = { fg = bg_alt, bg = bg },
           TelescopeNormal = { bg = bg },

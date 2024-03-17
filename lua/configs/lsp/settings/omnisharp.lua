@@ -1,4 +1,4 @@
-local lspconfig = require('lspconfig')
+local lspconfig = require("lspconfig")
 return {
   -- cmd = { "dotnet", "C:\\Users\\User\\AppData\\Local\\nvim-data\\mason\\packages\\omnisharp\\libexec\\OmniSharp.dll" },
   -- enable_editorconfig_support = true,

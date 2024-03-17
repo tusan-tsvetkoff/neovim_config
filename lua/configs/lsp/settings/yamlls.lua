@@ -4,7 +4,7 @@ return {
       schemaStore = {
         enable = false,
       },
-      schemas = require('schemastore').yaml.schemas(),
+      schemas = require("schemastore").yaml.schemas(),
     },
   },
 }
